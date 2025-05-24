@@ -1,8 +1,8 @@
-const Course = require("../models/Course");
-const Section = require("../models/Section");
-const Unit = require("../models/Unit");
-const Chapter = require("../models/Chapter");
-const Question = require("../models/Question");
+const Course = require("../models/course");
+const Section = require("../models/section");
+const Unit = require("../models/unit");
+const Chapter = require("../models/chapter");
+const Question = require("../models/question");
 
 // Create a Course
 exports.createCourse = async (req, res) => {

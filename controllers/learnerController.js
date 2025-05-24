@@ -1,10 +1,10 @@
-const Enrollment = require("../models/Enrollment")
-const Course = require("../models/Course")
-const Section = require("../models/Section")
-const Unit = require("../models/Unit")
-const Chapter = require("../models/Chapter")
-const Question = require("../models/Question")
-const Progress = require("../models/Progress")
+const Enrollment = require("../models/enrollment")
+const Course = require("../models/course")
+const Section = require("../models/section")
+const Unit = require("../models/unit")
+const Chapter = require("../models/chapter")
+const Question = require("../models/question")
+const Progress = require("../models/progress")
 
 // Get All Courses
 exports.getAllCourses = async (req, res) => {
