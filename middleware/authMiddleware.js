@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'process.env.JWT_SECRET';
+const JWT_SECRET = process.env.JWT_SECRET; // Correctly access environment variable
 
 module.exports = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -16,8 +16,8 @@ module.exports = (req, res, next) => {
   } catch (error) {
     console.error('Token verification error:', {
       message: error.message,
-      stack: error.stack
+      stack: error.stack,
     });
-    res.status(401).json({ message: 'Token is not valid' });
+    res.status(401).json({ message: 'Token is not valid', error: error.message });
   }
 };
