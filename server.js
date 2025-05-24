@@ -9,7 +9,7 @@ const adminRoutes = require('./routes/admin');
 const app = express();
 
 // Check for required environment variables
-const requiredEnv = ['MONGO_URI', 'JWT_SECRET'];
+const requiredEnv = ['MONGODB_URI', 'JWT_SECRET'];
 requiredEnv.forEach((env) => {
   if (!process.env[env]) {
     console.error(`Missing environment variable: ${env}`);
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
