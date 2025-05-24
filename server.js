@@ -36,13 +36,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root route to handle GET /
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Learning Platform API' });
+});
+
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
