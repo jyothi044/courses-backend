@@ -24,6 +24,14 @@ router.post('/register', [
   validateRequest
 ], register);
 
+// Fix: Prevent accidental GET call to /register
+router.get('/register', (req, res) => {
+  res.status(405).json({
+    message: 'GET not allowed on /register. Use POST instead.',
+    suggestion: 'Use POST for /api/auth/register with {email, password, confirmPassword, role}'
+  });
+});
+
 // Login route
 router.post('/login', [
   body('email').isEmail().normalizeEmail().withMessage('Invalid email format'),
