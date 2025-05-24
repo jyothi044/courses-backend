@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect('mongodb://127.0.0.1:27017/learning_platform', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     console.log('MongoDB Connected');
   } catch (error) {
-    console.error('MongoDB Connection Error:', error.message);
+    console.error('MongoDB connection error:', error.message);
     process.exit(1);
   }
 };

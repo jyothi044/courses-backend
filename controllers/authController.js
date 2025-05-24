@@ -1,8 +1,8 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET; // Correctly access environment variable
+const JWT_SECRET = '8a7f9c2b1e3d4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f';
 
 exports.register = async (req, res) => {
   const { email, password, role } = req.body;
@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
     res.status(201).json({ token });
   } catch (error) {
     console.error('Register error:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -41,6 +41,6 @@ exports.login = async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
