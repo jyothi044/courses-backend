@@ -26,13 +26,16 @@ app.use(
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Allow cookies if needed
   })
 );
 app.use(express.json());
 
-// Request logging for debugging
+// Enhanced request logging for debugging
 app.use((req, res, next) => {
-  console.log(`Request: ${req.method} ${req.url}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
   next();
 });
 
@@ -44,6 +47,14 @@ app.get('/', (req, res) => {
 // Favicon routes to prevent 404 errors
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/favicon.png', (req, res) => res.status(204).end());
+
+// Test route for all HTTP methods
+app
+  .route('/api/test-methods')
+  .get((req, res) => res.status(200).json({ message: 'GET request successful' }))
+  .post((req, res) => res.status(200).json({ message: 'POST request successful', body: req.body }))
+  .put((req, res) => res.status(200).json({ message: 'PUT request successful', body: req.body }))
+  .delete((req, res) => res.status(200).json({ message: 'DELETE request successful' }));
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -73,7 +84,7 @@ app.use((req, res) => {
     message: `Route ${req.method} ${req.originalUrl} not found`,
     suggestion: req.originalUrl.includes('/api/auth/register')
       ? 'Use POST for /api/auth/register with {email, password, role}'
-      : 'Check the API documentation for valid routes'
+      : 'Check the API documentation for valid routes',
   });
 });
 
