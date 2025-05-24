@@ -36,10 +36,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Root route to handle GET /
+// Root route
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to the Learning Platform API' });
 });
+
+// Favicon routes to prevent 404 errors
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/favicon.png', (req, res) => res.status(204).end());
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -62,6 +66,16 @@ connectDB().catch((error) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/learner', learnerRoutes);
 app.use('/api/admin', adminRoutes);
+
+// Catch-all route for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    message: `Route ${req.method} ${req.originalUrl} not found`,
+    suggestion: req.originalUrl.includes('/api/auth/register')
+      ? 'Use POST for /api/auth/register with {email, password, role}'
+      : 'Check the API documentation for valid routes'
+  });
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
